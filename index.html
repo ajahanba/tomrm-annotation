@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToM-RM Annotation Task</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app" class="wrap">
+
+  <!-- ============ LANDING ============ -->
+  <section id="screen-landing" class="screen">
+    <h1>Reading-comprehension annotation task</h1>
+    <p>
+      You'll read short stories or conversations, a question about them, and a
+      model's step-by-step reasoning toward an answer. For each one you'll
+      answer a single yes/no/can't-tell question about the reasoning itself
+      &mdash; not about whether the model's final answer was right or wrong.
+    </p>
+    <p>
+      There are three kinds of question, grouped into blocks so you're not
+      switching between them constantly. A short calibration set comes first,
+      with the intended answer shown afterward so you can check your reading
+      against it &mdash; those don't count toward the real data.
+    </p>
+    <p>Expect roughly 1&ndash;2 hours total, and you can close the tab and
+      come back later; your progress is saved in this browser.</p>
+    <label for="code-input">Your annotator code (given to you by the researcher):</label>
+    <input id="code-input" type="text" placeholder="e.g. ann1" autocomplete="off">
+    <button id="start-btn">Start</button>
+    <p id="landing-error" class="error" hidden></p>
+  </section>
+
+  <!-- ============ CALIBRATION INTRO ============ -->
+  <section id="screen-calib-intro" class="screen" hidden>
+    <h1>Calibration (practice)</h1>
+    <p>You'll see <span id="calib-count"></span> practice items. Answer each one
+      as best you can, then the intended answer and a short explanation will
+      appear. These are for your own calibration only &mdash; they are not
+      scored or used in the analysis.</p>
+    <button id="calib-start-btn">Begin calibration</button>
+  </section>
+
+  <!-- ============ CALIBRATION ITEM ============ -->
+  <section id="screen-calib-item" class="screen" hidden>
+    <div class="progress"><span id="calib-progress"></span></div>
+    <div class="item-card">
+      <h2 class="construct-q" id="calib-construct-q"></h2>
+      <div class="block">
+        <h3>Story / conversation</h3>
+        <p class="prewrap" id="calib-context"></p>
+      </div>
+      <div class="block">
+        <h3>Question</h3>
+        <p class="prewrap" id="calib-question"></p>
+      </div>
+      <div class="block">
+        <h3>Model's reasoning</h3>
+        <p class="prewrap" id="calib-traj"></p>
+      </div>
+      <div class="block">
+        <h3>Gold (correct) answer</h3>
+        <p class="prewrap" id="calib-gold"></p>
+      </div>
+      <div class="answer-row" id="calib-answer-row">
+        <button class="ans-btn" data-ans="Yes">Yes</button>
+        <button class="ans-btn" data-ans="No">No</button>
+        <button class="ans-btn" data-ans="Can't tell">Can't tell</button>
+      </div>
+      <div class="reveal" id="calib-reveal" hidden>
+        <p><strong>Intended answer: <span id="calib-reveal-answer"></span></strong></p>
+        <p id="calib-reveal-rationale"></p>
+        <button id="calib-next-btn">Continue</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAIN TASK INTRO ============ -->
+  <section id="screen-main-intro" class="screen" hidden>
+    <h1>Main task</h1>
+    <p>Calibration is done. From here on, your answers are recorded. There are
+      <span id="main-count"></span> items. No feedback will be shown &mdash;
+      just answer as best you can and move on.</p>
+    <button id="main-start-btn">Begin</button>
+  </section>
+
+  <!-- ============ MAIN ITEM ============ -->
+  <section id="screen-main-item" class="screen" hidden>
+    <div class="progress"><span id="main-progress"></span></div>
+    <div class="item-card">
+      <h2 class="construct-q" id="main-construct-q"></h2>
+      <div class="block">
+        <h3>Story / conversation</h3>
+        <p class="prewrap" id="main-context"></p>
+      </div>
+      <div class="block">
+        <h3>Question</h3>
+        <p class="prewrap" id="main-question"></p>
+      </div>
+      <div class="block">
+        <h3>Model's reasoning</h3>
+        <p class="prewrap" id="main-traj"></p>
+      </div>
+      <div class="block">
+        <h3>Gold (correct) answer</h3>
+        <p class="prewrap" id="main-gold"></p>
+      </div>
+      <div class="answer-row" id="main-answer-row">
+        <button class="ans-btn" data-ans="Yes">Yes</button>
+        <button class="ans-btn" data-ans="No">No</button>
+        <button class="ans-btn" data-ans="Can't tell">Can't tell</button>
+      </div>
+      <p id="main-sending" class="note" hidden>saving…</p>
+    </div>
+  </section>
+
+  <!-- ============ DONE ============ -->
+  <section id="screen-done" class="screen" hidden>
+    <h1>All done &mdash; thank you!</h1>
+    <p>You completed <span id="done-count"></span> items. You can close this tab now.</p>
+    <p id="done-pending-note" class="note" hidden></p>
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

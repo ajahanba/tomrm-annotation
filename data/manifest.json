@@ -1,0 +1,12 @@
+{
+  "annotators": [
+    "ann1",
+    "ann2",
+    "ann3"
+  ],
+  "counts": {
+    "ann1": 101,
+    "ann2": 105,
+    "ann3": 104
+  }
+}
