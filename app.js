@@ -11,7 +11,7 @@
 const CONFIG = {
   // Paste the URL you get after deploying Code.gs as a web app (see
   // DEPLOY.md). Looks like: https://script.google.com/macros/s/AKfycb.../exec
-  APPS_SCRIPT_URL: "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwOtcRZ0khKG2zWJgOZjwqoVPITyEDiWU4NCtXIgrb1UEkrldDdICSPeJ9IP0tIFUID/exec",
 };
 
 const el = (id) => document.getElementById(id);
