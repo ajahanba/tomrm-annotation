@@ -28,9 +28,10 @@ function storageKey(code) {
   return `tomrm_annot_v1_${code}`;
 }
 
-function freshState(code, calibration, items) {
+function freshState(code, dataVersion, calibration, items) {
   return {
     code,
+    dataVersion,
     calibration,
     items,
     calibIndex: 0,
@@ -104,13 +105,6 @@ async function startSession() {
     return;
   }
 
-  const existing = loadLocal(code);
-  if (existing) {
-    S = existing;
-    resumeUI();
-    return;
-  }
-
   let data;
   try {
     const resp = await fetch(`data/assignment_${code}.json`);
@@ -123,7 +117,24 @@ async function startSession() {
     return;
   }
 
-  S = freshState(code, data.calibration, data.items);
+  const existing = loadLocal(code);
+  if (existing && existing.dataVersion === data.data_version) {
+    // Same task data as before -- resume where this browser left off.
+    S = existing;
+    resumeUI();
+    return;
+  }
+
+  if (existing) {
+    // The underlying task data changed since this browser last saved
+    // progress here (e.g. the sample or roster was regenerated). Flush
+    // whatever hadn't been sent yet, then start clean on the new data --
+    // old progress markers don't mean anything against a different item set.
+    S = existing;
+    await flushQueue();
+  }
+
+  S = freshState(code, data.data_version, data.calibration, data.items);
   saveLocal();
   resumeUI();
 }
